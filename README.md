@@ -4,7 +4,7 @@
 * scenes, utils는 SparseGS 폴더를 그대로 가져와서 일부 수정
 * torch, CUDA setting은 혹시나 싶어 MVSplat envirnoment와 맞춰둠:
 ```bash
-git clone https://github.com/donydchen/mvsplat.git
+git clone https://github.com/Three-Shots-Are-Enough/Gen-new-cam
 cd mvsplat
 conda create -n mvsplat python=3.10
 conda activate mvsplat
