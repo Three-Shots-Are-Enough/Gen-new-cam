@@ -125,21 +125,3 @@ def interpolate_matrices_with_center(extrinsic_matrix1, extrinsic_matrix2, cente
     return interpolated_matrices
 
 
-
-R1 = np.load("/intern2/bgd/Yaicon/CameraViewer/inputs/quick/treehill/poses/_DSC8904.npy")
-R2 = np.load("/intern2/bgd/Yaicon/CameraViewer/inputs/quick/treehill/poses/_DSC8948.npy")
-
-center = calculate_center_from_cameras(R1, R2)
-num_interpolations = 20  # Number of interpolated matrices you want to generate
-interpolated_matrices = interpolate_matrices_with_center(R1, R2, center,num_interpolations)
-
-#Print the interpolated matrices
-for idx, matrix in enumerate(interpolated_matrices):
-    #print(f"Interpolated Matrix {idx + 1}:")
-    #print(matrix)
-    #print()
-    np.save(f"/intern2/bgd/Yaicon/CameraViewer/inputs/quick/treehill/poses/{idx}.npy", matrix)
-
-
-#interpolated_poses = interpolate_camera_poses(R1, T1, R2, T2, n)
-
