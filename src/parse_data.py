@@ -1,6 +1,6 @@
 import numpy as np
 
-def W2C_to_C2W(matrix):
+def W2C_C2W_transform(matrix):
     W2C_matrix = matrix
     C2W_matrix = np.linarg.inv(W2C_matrix)
 
@@ -53,7 +53,7 @@ def parse_data_from_file(filename, W2C = True):
             extrinsic_matrix[3,:3] = [tx, ty, tz]
 
             if W2C:
-                extrinsic_matrix = W2C_to_C2W(extrinsic_matrix)
+                extrinsic_matrix = W2C_C2W_transform(extrinsic_matrix)
             
             # Store the extrinsic matrix in the dictionary
             camera_extrinsics[camera_id] = extrinsic_matrix
