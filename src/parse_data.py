@@ -1,3 +1,11 @@
+import numpy as np
+
+def W2C_to_C2W(matrix):
+    W2C_matrix = matrix
+    C2W_matrix = np.linarg.inv(W2C_matrix)
+
+    return C2W_matrix
+
 def quaternion_to_matrix(w, x, y, z):
     # 4x4 회전 행렬 초기화
     w, x, y, z = w, x, y, z
@@ -18,7 +26,9 @@ def quaternion_to_matrix(w, x, y, z):
     R[3, 3] = 1
 
     return R
-def parse_data_from_file(filename):
+
+
+def parse_data_from_file(filename, W2C = True):
     #dust3r로 뽑은 colmap iamges.txt를 읽어오는 함수
   
     camera_extrinsics = {}
@@ -36,11 +46,14 @@ def parse_data_from_file(filename):
             qw, qx, qy, qz = map(float, [qw, qx, qy, qz])
             tx, ty, tz = map(float, [tx, ty, tz])
             camera_id = int(camera_id)
+            extrinsic_matrix = np.eye(4)
             
             # Create the extrinsic matrix for this camera
-            extrinsic_matrix = quaternion_to_matrix((qw, qx, qy, qz), (tx, ty, tz))
-            R = extrinsic_matrix[:3,:3]
-            t = extrinsic_matrix[:3, 3]
+            extrinsic_matrix = quaternion_to_matrix(qw, qx, qy, qz)
+            extrinsic_matrix[3,:3] = [tx, ty, tz]
+
+            if W2C:
+                extrinsic_matrix = W2C_to_C2W(extrinsic_matrix)
             
             # Store the extrinsic matrix in the dictionary
             camera_extrinsics[camera_id] = extrinsic_matrix
